@@ -1,0 +1,17 @@
+<section>
+  <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #f="ngForm" (ngSubmit)="obSubmit(f)">
+    <mat-form-field>
+      <input type="text" matInput placeholder="Name" ngModel name="nameIn">
+    </mat-form-field>
+    <mat-form-field>
+      <input type="text" matInput placeholder="Category" ngModel name="categoryIn">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Updated At" ngModel name="updatedAt">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <button type="submit" mat-raised-button color="primary">Submit</button>
+  </form>
+</section>
