@@ -1,9 +1,10 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {MatDialog,MatPaginator, MatSort} from '@angular/material';
+import {MatDialog, MatPaginator, MatSort} from '@angular/material';
 
 import {TaskService} from "../../services/task.service";
 import {Observable} from "rxjs";
 import {EditComponent} from "../tasks/edit/edit.component";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -18,9 +19,9 @@ export class TaskListComponent implements OnInit {
   dataSource: Observable<any>;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name','category','registerDate',"actions"];
+  displayedColumns = ['id', 'name', 'category', 'registerDate', "actions"];
 
-  constructor(private service: TaskService) {
+  constructor(private service: TaskService, private  router: Router) {
 
   }
 
@@ -45,4 +46,27 @@ export class TaskListComponent implements OnInit {
     });
   }*/
 
+  addNew() {
+    this.router.navigate(['/editTasks', 0]);
+  }
+
+  deleteItem(id: any) {
+    if (confirm(`Really delete this task?`)) {
+      this.service.delete(id).subscribe(data => {
+        const msg = data;
+
+        //this.router.navigateByUrl('/listTasks', {skipLocationChange: true}).then(() =>
+          //this.router.navigate(["listTasks"]));
+        this.ngOnInit();
+
+        // this.router.navigate(['/listTasks']);
+      }, error => {
+        return Observable.throw(error)
+      });
+    }
+  }
+
+  pageRefresh() {
+    location.reload();
+  }
 }

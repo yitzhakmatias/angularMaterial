@@ -24,4 +24,18 @@ export class TaskService {
     });*/
     return  this.http.get<any>('/server/api/v1/tasks');
   }
+
+  getTaskById(id: any) {
+
+    return this.http.get('/server/api/v1/tasks/' + id);
+    
+  }
+
+  createTask(task: any) {
+    let body = JSON.stringify(task);
+    return this.http.post('/server/api/v1/tasks', body, httpOptions);
+  }
+  delete(id){
+    return this.http.delete('/server/api/v1/tasks/' + id)
+  }
 }
